@@ -1,0 +1,37 @@
+# Arquivos de banco de dados locais
+db.sqlite3
+db_novo.sqlite3
+1db.sqlite3
+1db.sqlite3-shm
+1db.sqlite3-wal
+db.sqlite3-shm
+db.sqlite3-wal
+# Arquivos compilados do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Arquivos de log
+*.log
+
+# Arquivos de configuração locais
+.env
+*.env
+.venv
+
+# Diretórios de mídia e estáticos gerados
+
+
+# Arquivos de migração compilados
+*.mo
+
+# Arquivos de backup
+*.bak
+*.swp
+*.swo
+
+# Virtualenv
+venv/
+env/
+.env

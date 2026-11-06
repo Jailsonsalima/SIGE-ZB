@@ -1,0 +1,53 @@
+{% load static %}
+
+<header class="header">
+    <a href="{% url 'home' %}" class="logo">SIGECOM-ZB</a>
+    
+    
+    <nav class="nav">
+        {% if user.is_authenticated %}
+            <span class="user-info">Olá, {{ user.username }}!</span>
+        <ul class="menu">
+            <li><a href="{% url 'logout' %}" class='btn-primary'>Logout</a></li>
+        </ul>
+        {% else %}
+        <ul class="menu">
+            <li><a href="{% url 'login' %}" class='btn-primary'>Login</a></li>
+            <li><a href="{% url 'cadastrar_usuario' %}" class="btn-primary">Criar conta</a></li>
+        </ul>
+        {% endif %}
+    </nav>
+    
+</header>
+<div class="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message | linebreaksbr }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% if user.is_authenticated  %}
+    <div class="form-row" style="justify-content: center; margin-top: 10px;">
+        {% if user.perfil == 'CHEFE' or user.perfil == 'ASSESSOR' %}
+            <!-- Card 1 -->
+            <a href="{% url 'gerenciar_contas' %}" >
+                <div class="card">
+                    <div class="icon">🔐</div>
+                    <div class="card-text">Gerenciar Contas</div>
+                </div>
+            </a>
+        {% endif %}
+        {% if user.perfil == 'CHEFE' or user.perfil == 'ASSESSOR' or user.perfil == 'ATENDENTE' %}
+            <!-- Card 2 -->
+           
+             <a href="" >
+                <div class="card">
+                    <div class="icon">👨🏻‍💻</div>
+                    <div class="card-text">Operacional</div>
+                </div>
+            </a>
+            
+           
+        {% endif %}
+    </div>
+{% endif %}

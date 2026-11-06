@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Gerenciamento de Contas</h2>
+
+    {% if request.user.perfil == "CHEFE" %}
+    <section class="dashboard-section" style="margin-top: 20px;">
+        
+
+        {% if request.GET.mostrar == "todos" %}
+            <a href="{% url 'gerenciar_contas' %}" class="btn-primary">Ver Inativos</a>
+        {% else %}
+            <a href="{% url 'gerenciar_contas' %}?mostrar=todos" class="btn-primary">Ver Todos</a>
+        {% endif %}
+
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Email</th>
+                    
+                    <th>Perfil</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in page_obj %}
+                <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.perfil|default:"Não definido" }}</td>
+                    <td>
+                        {% if usuario.is_active %}
+                            <span class="status ativo">Ativo</span>
+                        {% else %}
+                            <span class="status inativo">Inativo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if usuario != request.user %}
+                        <form method="post" action="{% url 'definir_perfil' usuario.id %}">
+                            {% csrf_token %}
+                            <select name="perfil" class="select-tipo">
+                                <option value="CHEFE" {% if usuario.perfil == "CHEFE" %}selected{% endif %}>Chefe de Gabinete</option>
+                                <option value="ASSESSOR" {% if usuario.perfil == "ASSESSOR" %}selected{% endif %}>Assessor</option>
+                                <option value="ATENDENTE" {% if usuario.perfil == "ATENDENTE" %}selected{% endif %}>Atendente</option>
+                                <option value="inativo" {% if not usuario.is_active %}selected{% endif %}>Inativo</option>
+                            </select>
+                            <button type="submit" class="btn-primary">Definir</button>
+                        </form>
+                        {% else %}
+                            <span class="info">Não é possível alterar a própria conta</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Paginação -->
+        <div class="pagination" style="margin-top:20px; text-align:center;">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&mostrar={{ request.GET.mostrar }}" class="btn-secondary">Anterior</a>
+            {% endif %}
+
+            <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&mostrar={{ request.GET.mostrar }}" class="btn-secondary">Próxima</a>
+            {% endif %}
+        </div>
+    </section>
+    {% else %}
+        <p><strong>Área de contas disponível apenas para diretores.</strong></p>
+    {% endif %}
+</div>
+{% endblock %}
