@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from usuarios import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,14 @@ urlpatterns = [
     path('sucesso/', views.sucesso, name='sucesso'),
     path("gerenciar_contas/", views.gerenciar_contas, name="gerenciar_contas"),
     path("definir-perfil/<int:usuario_id>/", views.definir_perfil, name="definir_perfil"),
+
+    # Solicitar redefinição
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
+    # Confirmação de envio de e-mail
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    # Link recebido por e-mail
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # Finalização da redefinição
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
 ]
