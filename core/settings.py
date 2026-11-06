@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kvcsov90_)cmr421$w5!m_up@*p29-nifin=w$b152jbe^ead7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["sigecomzb.pythonanywhere.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["sigezb.pythonanywhere.com", "127.0.0.1"]
 
 
 # Application definition
@@ -71,7 +71,7 @@ TEMPLATES = [
         },
     },
 ]
-WSGI_APPLICATION = "sigecomzb.wsgi.application"
+WSGI_APPLICATION = "sigezb.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
@@ -143,9 +143,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/sigecomzb/sigecomzb/media'
+MEDIA_ROOT = '/home/sigezb/sigezb/media'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/sigecomzb/sigecomzb/static'
+STATIC_ROOT = '/home/sigezb/sigezb/static'
 STATIC_URL = '/static/'
 
 # Exemplo usando Gmail
@@ -153,6 +153,6 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "sigecomzb@gmail.com"
+EMAIL_HOST_USER = "sigezb@gmail.com"
 EMAIL_HOST_PASSWORD = "lztr ilgr onlz znun"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
